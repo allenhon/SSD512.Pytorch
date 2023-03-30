@@ -86,6 +86,7 @@ def train():
                                 transform=SSDAugmentation(cfg['min_dim'],
                                                           MEANS))
     elif args.dataset == 'VOC':
+        print ('VOC format selected')
         if args.dataset_root == VOC_ROOT:
             parser.error('Must specify dataset if specifying dataset_root')
         cfg = voc
