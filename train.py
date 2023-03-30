@@ -89,11 +89,14 @@ def train():
         print ('VOC format selected')
         if args.dataset_root == VOC_ROOT:
             parser.error('Must specify dataset if specifying dataset_root')
+        print('Checkpoint 1')
         cfg = voc
+        print('Checkpoint 2')
         dataset = VOCDetection(root=args.dataset_root,
                                transform=SSDAugmentation(args.input,
                                                          MEANS))
-
+        print('Checkpoint 3')
+    print('Checkpoint 4')
     if args.visdom:
         import visdom
         viz = visdom.Visdom()
