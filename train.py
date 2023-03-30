@@ -88,7 +88,8 @@ def train():
     elif args.dataset == 'VOC':
         print ('VOC format selected')
         if args.dataset_root == VOC_ROOT:
-            parser.error('Must specify dataset if specifying dataset_root')
+            print('VOC_Root == args.dataset_root')
+            # parser.error('Must specify dataset if specifying dataset_root')
         print('Checkpoint 1')
         cfg = voc
         print('Checkpoint 2')
