@@ -18,14 +18,10 @@ else:
     import xml.etree.ElementTree as ET
 
 VOC_CLASSES = (  # always index 0
-    'aeroplane', 'bicycle', 'bird', 'boat',
-    'bottle', 'bus', 'car', 'cat', 'chair',
-    'cow', 'diningtable', 'dog', 'horse',
-    'motorbike', 'person', 'pottedplant',
-    'sheep', 'sofa', 'train', 'tvmonitor')
+    'bga_ball', 'triangle')
 
 # note: if you used our download scripts, this should be right
-VOC_ROOT = osp.join('./', "data/VOCdevkit/")
+VOC_ROOT = osp.join('./', "data/FP7_pascalvoc/")
 
 
 class VOCAnnotationTransform(object):
@@ -95,7 +91,7 @@ class VOCDetection(data.Dataset):
     """
 
     def __init__(self, root,
-                 image_sets=[('2007', 'trainval'), ('2012', 'trainval')],
+                 image_sets=[('2007', 'trainval')],
                  transform=None, target_transform=VOCAnnotationTransform(),
                  dataset_name='VOC0712'):
         self.root = root
