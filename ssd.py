@@ -255,7 +255,7 @@ efficientnet_mbox = [4, 6, 6, 6, 4, 4]
 efficientnet_axtras = [128, 'S', 256, 128, 256, 128, 256]
 
 
-def build_ssd(phase, size=300, num_classes=21):
+def build_ssd(phase, size=512, num_classes=2):
     if phase != "test" and phase != "train":
         print("ERROR: Phase: " + phase + " not recognized")
         return
@@ -269,7 +269,7 @@ def build_ssd(phase, size=300, num_classes=21):
     print('Begin to build SSD-VGG...\n')
     return SSD(phase, size, base_, extras_, head_, num_classes)
 
-def build_ssd_efficientnet(phase, size=300, num_classes=21):
+def build_ssd_efficientnet(phase, size=512, num_classes=2):
     if phase != "test" and phase != "train":
         print("ERROR: Phase: " + phase + " not recognized")
         return
