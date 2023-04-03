@@ -248,7 +248,7 @@ def adjust_learning_rate(optimizer, gamma, step):
         param_group['lr'] = lr
 
 def warmup_learning_rate(optimizer,epoch):
-    lr_ini = 0.0001
+    lr_ini = 0.001 #original lr_ini=0.0001
     print('lr warmup...')
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr_ini+(args.lr - lr_ini)*epoch/5
