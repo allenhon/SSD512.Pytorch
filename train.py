@@ -204,14 +204,19 @@ def train():
             print ('forward propagated')
             # backprop
             optimizer.zero_grad()
+            print ('optimizer.zero_grad() completed')
             loss_l, loss_c = criterion(out, targets)
             loss = loss_l + loss_c
+            print ('loss completed, loss:', loss)
             loss.backward()
+            print ('loss back propagated')
             optimizer.step()
+            print ('step optimized')
             t1 = time.time()
             loc_loss += loss_l.item()
             conf_loss += loss_c.item()
-            print ('back propagated')
+            print (loc_loss,conf_loss)
+            print ('back propagated completed')
             if iteration % 10 == 0:
                 print('Epoch '+repr(epoch)+'|| iter ' + repr(iteration % epoch_size)+'/'+repr(epoch_size) +'|| Total iter '+repr(iteration)+ ' || Total Loss: %.4f || Loc Loss: %.4f || Cls Loss: %.4f || LR: %f || timer: %.4f sec.\n' % (loss.item(),loss_l.item(),loss_c.item(),cur_lr,(t1 - t0)), end=' ')
                 loss_cls.append(loss_c.item())
@@ -248,7 +253,7 @@ def adjust_learning_rate(optimizer, gamma, step):
         param_group['lr'] = lr
 
 def warmup_learning_rate(optimizer,epoch):
-    lr_ini = 0.001 #original lr_ini=0.0001
+    lr_ini = 0.0001 #original lr_ini=0.0001
     print('lr warmup...')
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr_ini+(args.lr - lr_ini)*epoch/5
