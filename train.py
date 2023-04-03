@@ -167,6 +167,7 @@ def train():
                                   num_workers=args.num_workers,
                                   shuffle=False, collate_fn=detection_collate,
                                   pin_memory=True)
+    print ('Data loaded in .DataLoader Pytorch')
     # create batch iterator
     # batch_iterator = iter(data_loader)
     for epoch in range(args.start_epoch, args.num_epoch):
@@ -189,14 +190,18 @@ def train():
                 if 'lr' in param.keys():
                     cur_lr = param['lr']
             if args.cuda:
+                print ('loop dataloader items, args.cuda== True')
                 images = Variable(images.cuda())
                 targets = [Variable(ann.cuda()) for ann in targets]
+                print ("Printing Targets:",targets)
             else:
                 images = Variable(images)
                 targets = [Variable(ann) for ann in targets]
             # forward
             t0 = time.time()
             out = net(images)
+
+            print ('forward propagated')
             # backprop
             optimizer.zero_grad()
             loss_l, loss_c = criterion(out, targets)
@@ -206,7 +211,7 @@ def train():
             t1 = time.time()
             loc_loss += loss_l.item()
             conf_loss += loss_c.item()
-
+            print ('back propagated')
             if iteration % 10 == 0:
                 print('Epoch '+repr(epoch)+'|| iter ' + repr(iteration % epoch_size)+'/'+repr(epoch_size) +'|| Total iter '+repr(iteration)+ ' || Total Loss: %.4f || Loc Loss: %.4f || Cls Loss: %.4f || LR: %f || timer: %.4f sec.\n' % (loss.item(),loss_l.item(),loss_c.item(),cur_lr,(t1 - t0)), end=' ')
                 loss_cls.append(loss_c.item())
@@ -225,6 +230,8 @@ def train():
                 with open('loss.pkl', 'wb') as f:
                     pickle.dump(loss_dic, f, pickle.HIGHEST_PROTOCOL)
             iteration += 1
+
+        print ('Epoch completed')
     torch.save(ssd_net.state_dict(),
                args.save_folder + '' + args.dataset + '.pth')
 
