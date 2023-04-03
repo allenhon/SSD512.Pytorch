@@ -105,6 +105,7 @@ class MultiBoxLoss(nn.Module):
         # Confidence Loss Including Positive and Negative Examples
         pos_idx = pos.unsqueeze(2).expand_as(conf_data)
         neg_idx = neg.unsqueeze(2).expand_as(conf_data)
+        print (conf_data)
         conf_p = conf_data[(pos_idx+neg_idx).gt(0)].view(-1, num_classes) #self.num_classes
         print (conf_p)
         targets_weighted = conf_t[(pos+neg).gt(0)]
