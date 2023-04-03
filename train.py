@@ -203,8 +203,8 @@ def train():
 
             print ('forward propagated')
             # backprop
-            optimizer.zero_grad()
-            print ('optimizer.zero_grad() completed')
+            # optimizer.zero_grad()
+            # print ('optimizer.zero_grad() completed')
             loss_l, loss_c = criterion(out, targets)
             loss = loss_l + loss_c
             print ('loss completed, loss:', loss)
@@ -212,6 +212,8 @@ def train():
             print ('loss back propagated')
             optimizer.step()
             print ('step optimized')
+            optimizer.zero_grad()
+            print ('optimizer.zero_grad() completed')
             t1 = time.time()
             loc_loss += loss_l.item()
             conf_loss += loss_c.item()
