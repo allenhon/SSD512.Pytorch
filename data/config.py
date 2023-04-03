@@ -27,7 +27,7 @@ voc = {
         'name': 'VOC'
     },
     'SSD512':{
-        'num_classes': 2,
+        'num_classes': 3,
         'lr_steps': (100, 200, 300),
         'max_iter': 120000,
         'feature_maps': [64, 32, 16, 8, 4, 2, 1],
