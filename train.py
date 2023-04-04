@@ -136,8 +136,8 @@ def train():
         ssd_net.loc.apply(weights_init)
         ssd_net.conf.apply(weights_init)
 
-    # optimizer = optim.AdamW(net.parameters(), lr=args.lr)
-    optimizer = optim.SGD(net.parameters(), lr=args.lr,momentum=args.momentum)
+    optimizer = optim.AdamW(net.parameters(), lr=args.lr)
+    # optimizer = optim.SGD(net.parameters(), lr=args.lr,momentum=args.momentum)
     print(args.num_class)
     criterion = MultiBoxLoss(args.num_class, 0.5, True, 0, True, 3, 0.5,
                              False, args.cuda)
@@ -194,7 +194,7 @@ def train():
                 print ('loop dataloader items, args.cuda== True')
                 images = Variable(images.cuda())
                 targets = [Variable(ann.cuda()) for ann in targets]
-                print ("Printing Targets:",targets)
+                # print ("Printing Targets:",targets)
             else:
                 images = Variable(images)
                 targets = [Variable(ann) for ann in targets]
@@ -218,7 +218,8 @@ def train():
             t1 = time.time()
             loc_loss += loss_l.item()
             conf_loss += loss_c.item()
-            print (loc_loss,conf_loss)
+            print('loc_loss:', loc_loss)
+            print ('conf_loss:',conf_loss)
             print ('back propagated completed')
             if iteration % 10 == 0:
                 print('Epoch '+repr(epoch)+'|| iter ' + repr(iteration % epoch_size)+'/'+repr(epoch_size) +'|| Total iter '+repr(iteration)+ ' || Total Loss: %.4f || Loc Loss: %.4f || Cls Loss: %.4f || LR: %f || timer: %.4f sec.\n' % (loss.item(),loss_l.item(),loss_c.item(),cur_lr,(t1 - t0)), end=' ')
@@ -242,6 +243,7 @@ def train():
         print ('Epoch completed')
     torch.save(ssd_net.state_dict(),
                args.save_folder + '' + args.dataset + '.pth')
+    print ('Weights Saved to: '+args.save_folder + '' + args.dataset + '.pth')
 
 
 def adjust_learning_rate(optimizer, gamma, step):
