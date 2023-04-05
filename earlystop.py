@@ -14,7 +14,7 @@ class EarlyStopper:
         elif training_loss > (self.min_training_loss + self.min_delta):
             self.counter += 1
             if self.counter >= self.patience:
-                print ("Early Stopping triggered, patience = "+self.patience)
+                print ("Early Stopping triggered, patience = "+str(self.patience))
                 return True
         return False
     
