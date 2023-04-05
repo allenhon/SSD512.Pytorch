@@ -73,7 +73,8 @@ imgsetpath = os.path.join(args.voc_root, 'VOC2007', 'ImageSets',
                           'Main', '{:s}.txt')
 YEAR = '2007'
 devkit_path = args.voc_root + 'VOC' + YEAR
-dataset_mean = (104, 117, 123)
+# dataset_mean = (104, 117, 123)
+dataset_mean = (73, 67, 73)
 set_type = 'test'
 
 
