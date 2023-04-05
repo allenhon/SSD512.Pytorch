@@ -17,6 +17,8 @@ import argparse
 import pickle
 import math
 
+from earlystop import EarlyStopper
+
 
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
@@ -169,6 +171,11 @@ def train():
                                   shuffle=False, collate_fn=detection_collate,
                                   pin_memory=True)
     print ('Data loaded in .DataLoader Pytorch')
+    
+    ## Enable Early Stopping
+    early_stopper = EarlyStopper(patience=10, min_delta=0)
+
+
     # create batch iterator
     # batch_iterator = iter(data_loader)
     for epoch in range(args.start_epoch, args.num_epoch):
@@ -215,6 +222,8 @@ def train():
             print ('step optimized')
             # optimizer.zero_grad()
             # print ('optimizer.zero_grad() completed')
+
+
             t1 = time.time()
             loc_loss += loss_l.item()
             conf_loss += loss_c.item()
@@ -241,9 +250,14 @@ def train():
             iteration += 1
 
         print ('Epoch completed')
+
+        ##Check if early stopping criteria is triggered
+        if early_stopper.early_stop(loss):
+            break
     torch.save(ssd_net.state_dict(),
                args.save_folder + '' + args.dataset + '.pth')
     print ('Weights Saved to: '+args.save_folder + '' + args.dataset + '.pth')
+
 
 
 def adjust_learning_rate(optimizer, gamma, step):
