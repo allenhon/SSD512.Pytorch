@@ -89,8 +89,9 @@ def test_voc():
         net = net.cuda()
         cudnn.benchmark = True
     # evaluation
+    ##changed BaseTransform(net.size, (104, 117, 123))
     test_net(args.save_folder, net, args.cuda, testset,
-             BaseTransform(net.size, (104, 117, 123)),
+             BaseTransform(net.size, (73, 67, 73)),
              thresh=args.visual_threshold)
 
 if __name__ == '__main__':
