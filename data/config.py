@@ -8,7 +8,8 @@ HOME = os.path.expanduser("~")
 COLORS = ((255, 0, 0, 128), (0, 255, 0, 128), (0, 0, 255, 128),
           (0, 255, 255, 128), (255, 0, 255, 128), (255, 255, 0, 128))
 
-MEANS = (104, 117, 123)
+# MEANS = (104, 117, 123) #original means
+MEANS = (73, 67, 73) #for FP7_PascalVOC dataset
 
 # SSD300 CONFIGS
 voc = {

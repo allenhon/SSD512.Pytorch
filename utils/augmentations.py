@@ -397,9 +397,9 @@ class PhotometricDistort(object):
         im, boxes, labels = distort(im, boxes, labels)
         return self.rand_light_noise(im, boxes, labels)
 
-
+##updated original mean=(104, 117, 123)
 class SSDAugmentation(object):
-    def __init__(self, size=512, mean=(104, 117, 123)):
+    def __init__(self, size=512, mean=(73, 67, 73)):
         self.mean = mean
         self.size = size
         self.augment = Compose([
