@@ -198,7 +198,7 @@ def train():
                 if 'lr' in param.keys():
                     cur_lr = param['lr']
             if args.cuda:
-                print ('loop dataloader items, args.cuda== True')
+                print ('Looping through dataloader items, args.cuda enabled')
                 images = Variable(images.cuda())
                 targets = [Variable(ann.cuda()) for ann in targets]
                 # print ("Printing Targets:",targets)
@@ -215,11 +215,11 @@ def train():
             print ('optimizer.zero_grad() completed')
             loss_l, loss_c = criterion(out, targets)
             loss = loss_l + loss_c
-            print ('loss completed, loss:', loss)
+            print ('Loss completed, loss:', loss)
             loss.backward()
-            print ('loss back propagated')
+            print ('Loss back propagated')
             optimizer.step()
-            print ('step optimized')
+            print ('Step optimized')
             # optimizer.zero_grad()
             # print ('optimizer.zero_grad() completed')
 
@@ -227,9 +227,9 @@ def train():
             t1 = time.time()
             loc_loss += loss_l.item()
             conf_loss += loss_c.item()
-            print('loc_loss:', loc_loss)
-            print ('conf_loss:',conf_loss)
-            print ('back propagated completed')
+            # print('loc_loss:', loc_loss)
+            # print ('conf_loss:',conf_loss)
+            print ('Back propagated completed')
             if iteration % 10 == 0:
                 print('Epoch '+repr(epoch)+'|| iter ' + repr(iteration % epoch_size)+'/'+repr(epoch_size) +'|| Total iter '+repr(iteration)+ ' || Total Loss: %.4f || Loc Loss: %.4f || Cls Loss: %.4f || LR: %f || timer: %.4f sec.\n' % (loss.item(),loss_l.item(),loss_c.item(),cur_lr,(t1 - t0)), end=' ')
                 loss_cls.append(loss_c.item())
@@ -254,6 +254,7 @@ def train():
         ##Check if early stopping criteria is triggered
         if early_stopper.early_stop(loss):
             break
+    ## Save weights as .pth file    
     torch.save(ssd_net.state_dict(),
                args.save_folder + '' + args.dataset + '.pth')
     print ('Weights Saved to: '+args.save_folder + '' + args.dataset + '.pth')
